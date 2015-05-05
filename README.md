@@ -1,2 +1,2 @@
 # gamelib
-A library on which to build various games
+A library on which to build various games.
