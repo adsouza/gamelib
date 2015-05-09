@@ -1,22 +1,20 @@
-package french
-
-import "github.com/adsouza/gamelib/go/cards/deck"
+package cards
 
 const (
-	_ = iota
-	Red deck.Color
+	_         = iota
+	Red Color = iota
 	Black
 )
 const (
-	_ = iota
-	Clubs deck.Suit
+	_          = iota
+	Clubs Suit = iota
 	Diamonds
 	Hearts
 	Spades
 )
 const (
-	_ = iota
-	Ace deck.Rank
+	_        = iota
+	Ace Rank = iota
 	Two
 	Three
 	Four
