@@ -28,3 +28,18 @@ const (
 	Queen
 	King
 )
+
+func NewDeck() Deck {
+	d := Deck{}
+	d.cards = make([]Card, 52)
+	c := 0
+	for r := Ace; r <= King; r++ {
+		for s := Clubs; s <= Spades; s++ {
+			d.cards[c].Rank = r
+			d.cards[c].Suit = s
+			c++
+		}
+	}
+	d.shuffle()
+	return d
+}
