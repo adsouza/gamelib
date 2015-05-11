@@ -29,9 +29,12 @@ const (
 	King
 )
 
+// DeckSize includes 2 jokers.
+const DeckSize = 54
+
 func NewDeck() Deck {
 	d := Deck{}
-	d.cards = make([]Card, 52)
+	d.cards = make([]Card, DeckSize)
 	c := 0
 	for r := Ace; r <= King; r++ {
 		for s := Clubs; s <= Spades; s++ {
