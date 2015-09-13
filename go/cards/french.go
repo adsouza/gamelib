@@ -7,10 +7,10 @@ const (
 )
 const (
 	_          = iota
-	Clubs Suit = iota
-	Diamonds
-	Hearts
-	Spades
+	♧ Suit = iota
+	♢
+	♡
+	♤
 )
 const (
 	_        = iota
