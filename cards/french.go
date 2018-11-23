@@ -7,11 +7,23 @@ const (
 )
 const (
 	_          = iota
-	♧ Suit = iota
-	♢
-	♡
-	♤
+	Clubs Suit = iota
+	Diamonds
+	Hearts
+	Spades
 )
+
+func SuitColor(s Suit) Color {
+	switch s {
+	case Clubs, Spades:
+		return Black
+	case Hearts, Diamonds:
+		return Red
+	default:
+		return Color(0)
+	}
+}
+
 const (
 	_        = iota
 	Ace Rank = iota
