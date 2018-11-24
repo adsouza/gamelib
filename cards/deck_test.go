@@ -51,6 +51,12 @@ func TestDealingInitialHands(t *testing.T) {
 	if _, err := d.DealHands(0, 0, nil); err == nil {
 		t.Fatalf("Trying to use a nil interface for startState was not caught.")
 	}
+	if _, err := d.DealHands(2, 18, nil); err == nil {
+		t.Fatalf("Trying to deal out more cards than exist in the deck was not prevented.")
+	}
+	if _, err := d.DealHands(12, 5, nil); err == nil {
+		t.Fatalf("Trying to deal out more cards than exist in the deck was not prevented.")
+	}
 	hands, err := d.DealHands(6, 9, TestState{})
 	if err != nil {
 		t.Fatalf("Unable to deal out entire 54 card deck to 6 players.")
