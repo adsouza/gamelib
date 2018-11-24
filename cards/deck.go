@@ -17,9 +17,12 @@ func (c *Card) IsJoker() bool {
 	return c.Suit == 0 && c.Rank == 0
 }
 
-// State is flexible and may be used to model the visibility of a card's face (i.e. up/down)
-// or the number of identical cards in a multi-deck game.
-type State int8
+// Status enumerates the various possible statuses that a given card may have (e.g. face-down, face-up, held).
+type Status int8
+type State interface {
+	NumCards(Status) int
+	Add(State) State
+}
 type Hand map[Card]State
 type Deck struct {
 	cards []Card
@@ -43,4 +46,25 @@ func (d *Deck) Deal() (*Card, error) {
 	c := d.cards[0]
 	d.cards = d.cards[1:]
 	return &c, nil
+}
+
+func (d *Deck) DealHands(handSize, numHands int, startState State) ([]Hand, error) {
+	if startState == nil {
+		return []Hand{}, fmt.Errorf("startState arg is nil.")
+	}
+	if handSize*numHands > len(d.cards) {
+		return []Hand{}, fmt.Errorf("deck contains only %d cards so cannot deal %d cards to %d players.",
+			len(d.cards), handSize, numHands)
+	}
+	hands := make([]Hand, numHands)
+	for h := 0; h < numHands; h++ {
+		hand := map[Card]State{}
+		for c := 0; c < handSize; c++ {
+			card := d.cards[c]
+			hand[card] = startState.Add(hand[card])
+		}
+		hands[h] = hand
+		d.cards = d.cards[handSize:]
+	}
+	return hands, nil
 }
