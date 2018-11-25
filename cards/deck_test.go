@@ -37,13 +37,20 @@ func (ts TestState) NumCards(s Status) (uint8, error) {
 	}
 }
 
-func (ts TestState) Add(s State) State {
+func (ts TestState) Add(s State) (State, error) {
 	if s == nil {
-		return ts
+		return ts, nil
 	}
-	ts.faceUp, _ = s.NumCards(FaceUp)
-	ts.faceDown, _ = s.NumCards(FaceDown)
-	return ts
+	var err error
+	ts.faceUp, err = s.NumCards(FaceUp)
+	if err != nil {
+		return ts, err
+	}
+	ts.faceDown, err = s.NumCards(FaceDown)
+	if err != nil {
+		return ts, err
+	}
+	return ts, nil
 }
 
 func TestDealingInitialHands(t *testing.T) {

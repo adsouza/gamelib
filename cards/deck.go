@@ -21,7 +21,7 @@ func (c *Card) IsJoker() bool {
 type Status int8
 type State interface {
 	NumCards(Status) (uint8, error)
-	Add(State) State
+	Add(State) (State, error)
 }
 type Hand map[Card]State
 type Deck struct {
@@ -61,7 +61,7 @@ func (d *Deck) DealHands(numHands, handSize int, startState State) ([]Hand, erro
 		hand := map[Card]State{}
 		for c := 0; c < handSize; c++ {
 			card := d.cards[c]
-			hand[card] = startState.Add(hand[card])
+			hand[card], _ = startState.Add(hand[card])
 		}
 		hands[h] = hand
 		d.cards = d.cards[handSize:]
