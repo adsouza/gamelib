@@ -20,7 +20,7 @@ func (c *Card) IsJoker() bool {
 // Status enumerates the various possible statuses that a given card may have (e.g. face-down, face-up, held).
 type Status int8
 type State interface {
-	NumCards(Status) (uint8, error)
+	NumCards(Status) (uint, error)
 	Add(State) (State, error)
 }
 type Hand map[Card]State
